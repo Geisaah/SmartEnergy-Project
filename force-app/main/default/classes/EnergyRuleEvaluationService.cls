@@ -2,7 +2,7 @@
  * @description       : 
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             : 
- * @last modified on  : 10-26-2026
+ * @last modified on  : 10-27-2026
  * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
 **/
 public with sharing class EnergyRuleEvaluationService {
@@ -84,15 +84,15 @@ public with sharing class EnergyRuleEvaluationService {
                     reading.Consumo__c > rule.Limite_maximo_por_leitura_hora_em_kWh__c) {
 
                     // Criar o Alerta de Energia
-                    Alerta_de_Energia__c alert = new Alerta_de_Energia__c(
-                        Unidade_Consumidora__c = unitId,
-                        Leitura_de_Energia__c = reading.Id,
-                        Regra_de_Consumo__c = rule.Id,
-                        Data_e_Hora_do_Alerta__c = System.now(),
-                        Descricao_do_Alerta__c = 'Consumo de ' + reading.Consumo__c + ' kWh excedeu o limite da regra "' + rule.Name + '" (' + rule.Limite_maximo_por_leitura_hora_em_kWh__c + ' kWh).',
-                        Gravidade__c = rule.Gravidade__c != null ? rule.Gravidade__c : 'Media',
-                        Status__c = 'Pendente'
-                    );
+                   Alerta_de_Energia__c alert = new Alerta_de_Energia__c(
+                       Unidade_Consumidora__c = unitId,
+                       Leitura_de_Energia__c = reading.Id,
+                       Regra_de_Consumo__c = rule.Id,
+                       Data_e_Hora_do_Alerta__c = System.now(),
+                       Descricao_do_Alerta__c = 'Consumo de ' + reading.Consumo__c + ' kWh excedeu o limite da regra "' + rule.Name + '" (' + rule.Limite_maximo_por_leitura_hora_em_kWh__c + ' kWh).',
+                       Gravidade__c = rule.Gravidade__c != null ? rule.Gravidade__c : 'Medio',
+                       Status__c = 'Novo' // <-- Usando o valor correto da picklist da Org!
+);
                     alertsToInsert.add(alert);
                 }
             }
