@@ -1,0 +1,24 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 10-30-2026
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<template>
+    <lightning-card title="Alertas de Energia Recentes" icon-name="standard:warning">
+        <div class="slds-m-around_medium">
+            <template if:true={alerts}>
+                <lightning-datatable
+                    key-field="id"
+                    data={alerts}
+                    columns={columns}
+                    hide-checkbox-column>
+                </lightning-datatable>
+            </template>
+            <template if:false={alerts}>
+                <p class="slds-text-align_center slds-text-color_weak">Carregando alertas...</p>
+            </template>
+        </div>
+    </lightning-card>
+</template>
