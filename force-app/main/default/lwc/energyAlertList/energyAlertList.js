@@ -1,16 +1,26 @@
-import { LightningElement, track } from 'lwc';
+import { LightningElement, track, wire } from 'lwc';
+import getRecentAlerts from '@salesforce/apex/EnergyAlertController.getRecentAlerts';
 
 const columns = [
     { label: 'Nome do Alerta', fieldName: 'Name', type: 'text' },
-    { label: 'Severidade', fieldName: 'Severidade__c', type: 'text' },
+    { label: 'Gravidade', fieldName: 'Gravidade__c', type: 'text' },
     { label: 'Status', fieldName: 'Status__c', type: 'text' },
-    { label: 'Data', fieldName: 'CreatedDate', type: 'date' }
+    { label: 'Data e Hora', fieldName: 'Data_e_Hora_do_Alerta__c', type: 'date' }
 ];
 
 export default class EnergyAlertList extends LightningElement {
     @track columns = columns;
-    @track alerts = [
-        { id: '1', Name: 'ALT-0001', Severidade__c: 'High', Status__c: 'Novo', CreatedDate: '2026-10-30T10:00:00Z' },
-        { id: '2', Name: 'ALT-0002', Severidade__c: 'Medium', Status__c: 'Em Análise', CreatedDate: '2026-10-30T11:30:00Z' }
-    ];
+    @track alerts = [];
+    @track error;
+
+    @wire(getRecentAlerts)
+    wiredAlerts({ error, data }) {
+        if (data) {
+            this.alerts = data;
+            this.error = undefined;
+        } else if (error) {
+            this.error = error;
+            this.alerts = undefined;
+        }
+    }
 }
