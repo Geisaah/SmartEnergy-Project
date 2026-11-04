@@ -9,14 +9,14 @@
 private class EnergyAlertControllerTest {
     
     @TestSetup
-    static void makeData(){
-        // Cria registros de teste para o objeto Alerta_de_Energia__c
-        Alerta_de_Energia__c alert = new Alerta_de_Energia__c(
-            Gravidade__c = 'Alto',
-            Status__c = 'Novo'
-        );
-        insert alert;
-    }
+static void makeData(){
+    Alerta_de_Energia__c alert = new Alerta_de_Energia__c(
+        Gravidade__c = 'Alto',
+        Status__c = 'Novo',
+        Data_e_Hora_do_Alerta__c = System.now() // Preenche com a data e hora atual
+    );
+    insert alert;
+}
 
     @isTest
     static void testGetRecentAlerts() {
