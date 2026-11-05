@@ -1,0 +1,44 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 11-05-2026
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<template>
+    <lightning-card title="Painel de Pagamento - PayFlow" icon-name="standard:payment_gateway">
+        <div class="slds-m-around_medium">
+            <!-- Indicador de Carregamento -->
+            <template if:true={isLoading}>
+                <lightning-spinner alternative-text="Gerando pagamento..." size="medium"></lightning-spinner>
+            </template>
+
+            <!-- Conteúdo Principal -->
+            <template if:false={isLoading}>
+                <p class="slds-text-align_center slds-m-bottom_medium">
+                    Clique no botão abaixo para gerar a cobrança Pix via Mercado Pago para esta Oportunidade.
+                </p>
+                
+                <div class="slds-align_absolute-center">
+                    <lightning-button 
+                        variant="brand" 
+                        label="Gerar Pagamento Pix" 
+                        title="Gerar Pagamento" 
+                        onclick={handleGeneratePayment}
+                        icon-name="utility:richtext_strikethrough">
+                    </lightning-button>
+                </div>
+            </template>
+
+            <!-- Mensagem de Retorno / Sucesso -->
+            <template if:true={message}>
+                <div class="slds-notify slds-notify_toast slds-theme_success slds-m-top_medium" role="status">
+                    <span class="slds-assistive-text">Sucesso</span>
+                    <div class="slds-notify__content">
+                        <h2 class="slds-text-heading_small">{message}</h2>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+</template>
